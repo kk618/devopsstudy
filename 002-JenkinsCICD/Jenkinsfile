@@ -13,10 +13,10 @@ pipeline {
                 // 
                 sh"whoami"
                 script {
-                    docker.withRegistry(registryUrlBase, registryCredentialsId) {
+			echo $registryCredentialsId | docker login ghcr.io -u kk618  --password-stdin
                         dockerImage = docker.build("$registryUrl:$commitID","./002-JenkinsCICD")
 			dockerImage.push()
-                    }
+                    
                 }
             }
         }
