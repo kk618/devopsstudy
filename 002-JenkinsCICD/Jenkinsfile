@@ -17,6 +17,7 @@ pipeline {
                         dockerImage = docker.build("$registryUrl:$commitID","./002-JenkinsCICD")
 			dockerImage.push()
 		    }}
+	    }
         }
         stage('Deploy') { 
             steps {
