@@ -12,15 +12,11 @@ pipeline {
             steps {
                 // 
                 sh"whoami"
-                script {
-			 withCredentials([
-        string(credentialsId: 'kk-token', variable: 'registryCredentialsId') ])
-			{
+                 script {
+                    docker.withRegistry(registryUrlBase, registryCredentialsId) {
                         dockerImage = docker.build("$registryUrl:$commitID","./002-JenkinsCICD")
 			dockerImage.push()
-                    
-                }
-            }
+		    }}
         }
         stage('Deploy') { 
             steps {
